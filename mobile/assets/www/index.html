@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>drkTodo v1.0</title>
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+	 	<link rel="stylesheet" href="jquery.mobile/jquery.mobile-1.1.0.min.css" />
+	    <script type="text/javascript" charset="utf-8" src="jquery.mobile/jquery-1.6.4.min"></script>
+		<script type="text/javascript" charset="utf-8" src="jquery.mobile/jquery.mobile-1.1.0.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="phonegap-1.4.1.js"></script> 
+    </head>	
+	<body style="text-align: center;" data-theme="a">
+		<!-- page d'accueil -->
+		<div data-role="page" data-theme="a" id="main" >
+			<div data-role="navbar" style="position: fixed; top: 0; left: 0; right: 0; z-index: 999;">
+				<ul><li><a id="navbar" onclick="">TODO</a></li></ul> 
+			</div>	
+			<div class="page-content" id="loading">
+				<div data-role="content" style="text-align:center; vertical-align: middle;">
+					<div style="background: #000000; color: #FFFFFF; width: 70%; height: 33%; margin: auto; margin-top: 15%; border: #CFCFCF 1px solid;"> 
+						<img src="jquery.mobile/images/ajax-loader.gif"/>
+					</div>	
+				</div>	
+			</div>		
+			<div class="page-content" id="todolist" style="display: none">
+				<div data-role="content" id="content" style="text-align:center; margin: 0; padding-top: 50px;">
+					<span id="notask">No task in todo list.</span>
+					<ul data-role="listview" data-inset="true" id="todo">
+					</ul>	
+				</div>	
+				<div data-role="navbar" data-iconpos="left" style="position: fixed; bottom: 0; left: 0; right: 0; z-index: 999;">
+					<ul>
+						<li><a data-icon="plus" onclick="changePage('newtask');">New Task</a></li>
+						<li><a data-icon="delete" onclick="onBackbutton();">Quit</a></li>
+					</ul> 
+				</div>
+			</div>		
+			<div class="page-content" id="newtask" style="display: none">
+				<div data-role="content" style="text-align:center; margin: 0; padding-top: 50px;">
+					<select data-theme="c" name="tasks" id="tasks" onchange="selectChange();" data-native-menu="false" tabindex="-1">
+						<option value=" ">NEW TASK...</option>
+						<option value="FAIRE LES COURSES">FAIRE LES COURSES</option>
+						<option value="REGARDER MES MAILS">REGARDER MES MAILS</option>
+						<option value="PATATI ET PATATA">PATATI ET PATATA</option>
+					</select>
+					<p/>		
+					<input data-theme="c" type="text" name="task" id="task" value=""  style="display: block;" />
+				</div>	
+				<div data-role="navbar" data-iconpos="left" style="position: fixed; bottom: 0; left: 0; right: 0; z-index: 999;">
+					<ul>
+						<li><a data-icon="check" onclick="addItem()">OK</a></li> 
+						<li><a data-icon="back" onclick="changePage('todolist');">CANCEL</a></li>
+					</ul> 
+				</div>	
+			</div>		
+			<div class="page-content" id="help" style="display: none">
+				<div data-role="content" style="text-align: left; margin: 0; padding-top: 50px;">
+					<strong>drkTodo v1.0</strong><p/>
+					A simple TODO list for Android<p/>
+					By <a href="http://darken33.free.fr/" target="new">Philippe Bousquet</a> &lt;darken33@free.fr&gt;<p/> 
+					This software is under <a href="http://www.gnu.org/licenses/gpl.html" target="new">GNU GPL v3</a><p/>
+					&copy; Philippe Bousquet - 2013
+				</div>	
+				<div data-role="navbar" data-iconpos="left" style="position: fixed; bottom: 0; left: 0; right: 0; z-index: 999;">
+					<ul>
+						<li><a data-icon="back" onclick="changePage('todolist');">RETURN</a></li>
+					</ul> 
+				</div>	
+			</div>
+		</div>
+
+		<script type="text/javascript" src="js/drktodo.js"></script>
+		<script type="text/javascript" src="js/fs.js"></script>
+		<script type="text/javascript">
+			jQuery(document).ready(function(){
+				$('.ui-btn').click(function() {       
+					$('.ui-btn').removeClass('ui-btn-active');    
+				});
+				init();				
+			});		
+		</script>
+		
+	</body>
+</html>
+
+
